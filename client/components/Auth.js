@@ -10,7 +10,12 @@ const LoginRegisterForm = ({
     callback
 }) => (
     <div className='card'>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                callback();
+            }}
+        >
             <div className='form-group'>
                 <label htmlFor='email'>Email</label>
                 <input
