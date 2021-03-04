@@ -17,7 +17,12 @@ const Login = () => {
         await firebase
             .auth()
             .signInWithEmailAndPassword(loginEmail, loginPass)
-            .then(({ user }) => toast.success(JSON.stringify(user)))
+            // .then(({ user }) => toast.success(JSON.stringify(user)))
+            .then(() =>
+                toast.success("Login successful!!", {
+                    role: "Inform successful login"
+                })
+            )
             .catch((e) => toast.error(e.message));
     };
 
@@ -25,13 +30,23 @@ const Login = () => {
         await firebase
             .auth()
             .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            .then(() =>
+                toast.success("Google sign-in successful!!", {
+                    role: "Inform successful login"
+                })
+            )
             .catch((err) => toast.error(err.message));
     };
     const register = async () => {
         await firebase
             .auth()
             .createUserWithEmailAndPassword(regEmail, regPass)
-            .then(({ user }) => toast.success(JSON.stringify(user)))
+            // .then(({ user }) => toast.success(JSON.stringify(user)))
+            .then(() =>
+                toast.success("Sign Up successful!!", {
+                    role: "Inform successful login"
+                })
+            )
             .catch((e) => toast.error(e.message));
     };
     return (
