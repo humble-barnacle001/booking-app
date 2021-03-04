@@ -116,7 +116,7 @@ dist
 .pnp.*
 
 #firebase
-serviceAccountKey.json
+serviceAccountKey*.json
 
 #Examples, Uses, Personal
 example.*
