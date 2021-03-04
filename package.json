@@ -1,0 +1,25 @@
+{
+  "name": "booking-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm run server --prefix server",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humble-barnacle001/booking-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/humble-barnacle001/booking-app/issues"
+  },
+  "homepage": "https://github.com/humble-barnacle001/booking-app#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  }
+}
