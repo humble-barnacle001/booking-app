@@ -10,7 +10,7 @@ const app = express();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
-app.use(cors({ origin: process.env.PROXY }));
+app.use(cors({ origin: process.env.PROXY.split(",") }));
 app.use(getToken);
 
 app.get("/api", (req, res) => res.send(`API running`));
