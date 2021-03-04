@@ -1,24 +1,21 @@
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { Context } from "../context";
+import firebase from "../firebase";
 
 const Nav = () => {
-    useEffect(() => {
-        const el = document.getElementById("themeToggler");
-        el.setAttribute("onclick", "halfmoon.toggleDarkMode()");
+    const {
+        state: { user },
+        dispatch
+    } = useContext(Context);
 
-        // Works only for reload or initial load
-        if (halfmoon.readCookie("halfmoon_preferredMode")) {
-            if (halfmoon.readCookie("halfmoon_preferredMode") == "light-mode") {
-                document.body.classList.remove("dark-mode");
-                el.innerHTML = "<i class='far fa-moon' aria-hidden='true'></i>";
-            } else if (
-                halfmoon.readCookie("halfmoon_preferredMode") == "dark-mode"
-            ) {
-                document.body.classList.add("dark-mode");
-                el.innerHTML = "<i class='far fa-sun' aria-hidden='true'></i>";
-            }
-        }
-    }, []);
+    const handleLogOut = async () => {
+        await firebase.auth().signOut();
+        dispatch({
+            type: "LOGOUT",
+            payload: null
+        });
+    };
     return (
         <nav className='navbar'>
             <div className='container justify-content-between'>
@@ -30,11 +27,22 @@ const Nav = () => {
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link href='/auth'>
-                                <a className='nav-link text-primary'>
-                                    Login or Sign-Up
-                                </a>
-                            </Link>
+                            {user ? (
+                                <Link href='#!'>
+                                    <a
+                                        className='nav-link text-primary'
+                                        onClick={handleLogOut}
+                                    >
+                                        Log Out
+                                    </a>
+                                </Link>
+                            ) : (
+                                <Link href='/auth'>
+                                    <a className='nav-link text-primary'>
+                                        Login or Sign-Up
+                                    </a>
+                                </Link>
+                            )}
                         </li>
                     </ul>
                 </div>
