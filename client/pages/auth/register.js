@@ -1,30 +1,12 @@
-import { useContext } from "react";
-import { Context } from "../context";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import LoginRegisterForm from "../components/Auth";
+import Link from "next/link";
+import LoginRegisterForm from "../../components/Auth";
 
-const Login = () => {
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPass, setLoginPass] = useState("");
+const register = () => {
     const [regEmail, setRegEmail] = useState("");
     const [regPass, setRegPass] = useState("");
-    const router = useRouter();
-
-    const login = async () => {
-        await firebase
-            .auth()
-            .signInWithEmailAndPassword(loginEmail, loginPass)
-            // .then(({ user }) => toast.success(JSON.stringify(user)))
-            .then(() =>
-                toast.success("Login successful!!", {
-                    role: "Inform successful login"
-                })
-            )
-            .catch((e) => toast.error(e.message));
-    };
 
     const googleLogin = async () => {
         await firebase
@@ -49,24 +31,14 @@ const Login = () => {
             )
             .catch((e) => toast.error(e.message));
     };
+
     return (
         <div className='container'>
-            <h2 className='mt-20 pt-10 text-center font-weight-light text-extra-letter-spacing text-light-dm'>
-                Login / Register
-            </h2>
+            <h1 className='mt-20 pt-10 text-center font-weight-light text-extra-letter-spacing text-light-dm'>
+                Sign Up
+            </h1>
             <div className='row'>
-                <div className='col-md-6'>
-                    <LoginRegisterForm
-                        email={loginEmail}
-                        setEmail={setLoginEmail}
-                        pass={loginPass}
-                        setPass={setLoginPass}
-                        btnTxt='Login'
-                        btnClass='success'
-                        callback={login}
-                    />
-                </div>
-                <div className='col-md-6'>
+                <div className='col-lg-6 col-md-10 mx-auto'>
                     <LoginRegisterForm
                         email={regEmail}
                         setEmail={setRegEmail}
@@ -83,10 +55,14 @@ const Login = () => {
                 className='btn btn-primary btn-rounded btn-lg my-15 offset-1 col-10 col-md-6 offset-md-3'
                 onClick={googleLogin}
             >
-                <i className='fab fa-google'></i> Login or SignUp with Google
+                <i className='fab fa-google'></i> Sign-up with Google
             </button>
+            <p className='text-center'>
+                Already have an account?{"  "}
+                <Link href='/auth/login'>Login here</Link>
+            </p>
         </div>
     );
 };
 
-export default Login;
+export default register;

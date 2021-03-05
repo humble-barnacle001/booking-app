@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Context } from "../context";
 import firebase from "../firebase";
 
@@ -37,9 +37,9 @@ const Nav = () => {
                                     </a>
                                 </Link>
                             ) : (
-                                <Link href='/auth'>
+                                <Link href='/auth/login'>
                                     <a className='nav-link text-primary'>
-                                        Login or Sign-Up
+                                        Login
                                     </a>
                                 </Link>
                             )}
