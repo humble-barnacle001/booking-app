@@ -4,14 +4,17 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
         case "LOGOUT":
-            return { ...state, user: action.payload };
+            return { ...state, user: action.payload, loading: false };
+        case "LOAD":
+            return { ...state, loading: true };
         default:
             return state;
     }
 };
 
 const intialState = {
-    user: null
+    user: null,
+    loading: true
 };
 
 const Context = createContext({});

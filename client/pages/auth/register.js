@@ -1,36 +1,12 @@
-import firebase from "../../firebase";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import Link from "next/link";
 import LoginRegisterForm from "../../components/Auth";
+import { register } from "../../actions/auth";
+import noAuth from "../../components/NotLoggedRoute";
 
-const register = () => {
+const Register = () => {
     const [regEmail, setRegEmail] = useState("");
     const [regPass, setRegPass] = useState("");
-
-    const googleLogin = async () => {
-        await firebase
-            .auth()
-            .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-            .then(() =>
-                toast.success("Google sign-in successful!!", {
-                    role: "Inform successful login"
-                })
-            )
-            .catch((err) => toast.error(err.message));
-    };
-    const register = async () => {
-        await firebase
-            .auth()
-            .createUserWithEmailAndPassword(regEmail, regPass)
-            // .then(({ user }) => toast.success(JSON.stringify(user)))
-            .then(() =>
-                toast.success("Sign Up successful!!", {
-                    role: "Inform successful login"
-                })
-            )
-            .catch((e) => toast.error(e.message));
-    };
 
     return (
         <div className='container'>
@@ -51,12 +27,6 @@ const register = () => {
                     />
                 </div>
             </div>
-            <button
-                className='btn btn-primary btn-rounded btn-lg my-15 offset-1 col-10 col-md-6 offset-md-3'
-                onClick={googleLogin}
-            >
-                <i className='fab fa-google'></i> Sign-up with Google
-            </button>
             <p className='text-center'>
                 Already have an account?{"  "}
                 <Link href='/auth/login'>Login here</Link>
@@ -65,4 +35,4 @@ const register = () => {
     );
 };
 
-export default register;
+export default noAuth(Register);
