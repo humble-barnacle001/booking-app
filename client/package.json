@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@svgr/webpack": "^5.5.0",
     "firebase": "^8.2.9",
     "next": "^10.0.7",
     "react": "^17.0.1",
