@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { readdirSync } from "fs";
-import getToken from "../middleware/getToken";
+// import getToken from "../middleware/getToken";
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
@@ -11,7 +11,7 @@ const app = express();
 // Init Middleware
 app.use(express.json({ extended: false }));
 app.use(cors({ origin: process.env.PROXY.split(",") }));
-app.use(getToken);
+// app.use(getToken);
 
 app.get("/api", (req, res) => res.send(`API running`));
 
