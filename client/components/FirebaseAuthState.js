@@ -5,8 +5,17 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 export default function FirebaseAuthState({ children }) {
-    const { dispatch } = useContext(Context);
+    const {
+        state: { user },
+        dispatch
+    } = useContext(Context);
     const router = useRouter();
+
+    useEffect(() => {
+        // Redirects to home page after each successful login or page reload
+        if (user && router.pathname.indexOf("/auth/") != -1) router.push("/");
+    }, [user]);
+
     useEffect(() => {
         return firebase.auth().onAuthStateChanged(
             async (user) => {
@@ -15,6 +24,7 @@ export default function FirebaseAuthState({ children }) {
                         type: "LOGOUT",
                         payload: null
                     });
+                    document.cookie = "token=";
                 } else {
                     const { token } = await user.getIdTokenResult(true);
                     fetch(
@@ -28,7 +38,7 @@ export default function FirebaseAuthState({ children }) {
                         .then((r) =>
                             r.json().then((res) => {
                                 if (res.status === 200) {
-                                    router.push("/");
+                                    document.cookie = `token=${token}`;
                                     dispatch({
                                         type: "LOGIN",
                                         payload: res.body.user
@@ -38,6 +48,7 @@ export default function FirebaseAuthState({ children }) {
                         )
                         .catch((err) => {
                             console.log(err.message);
+                            document.cookie = "token=";
                             dispatch({
                                 type: "LOGOUT",
                                 payload: null
