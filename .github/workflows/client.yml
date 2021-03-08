@@ -29,6 +29,17 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    - name: Cache Next Files
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-next-build
+      with:
+        path: ./client/.next
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
     - run: npm ci --prefix client
     - run: npm run build --prefix client
     - run: npm run export --prefix client
